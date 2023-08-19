@@ -1,50 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int size(int *arr);
-int* at(int *arr, int index);
-int* push(int *arr, int val);
-int* insert(int *arr, int index, int val);
-int* pop(int* arr);
+int size(int **ptr);
+int at(int **ptr, int index);
+int* push(int **ptr, int val);
+int* insert(int **ptr, int index, int val);
+int pop(int** ptr);
 
 int main(int argc, char *argv[]) {
-    int *arr;
-    arr = (int*) malloc(sizeof(int));
+    int *arr = (int*) malloc(sizeof(int));
     *arr = 0;
+    int **ptr = &arr;
+}
 
-    push(arr, 100);
-    push(arr, 101);
-    push(arr, 102);
+int size(int **ptr){
+    return **ptr;
+}
 
-    insert(arr, 2, 200);
+int at(int **ptr, int index){
+    int *arr = *ptr;
 
-    for(int i=0; i<4; i++){
-        int *pos = at(arr, i);
-        if(pos == NULL){
-            printf("Error!\n");
-        } else{
-            printf("%d\n", *pos);
-        }
+    if(index+1>*arr || index<0){
+        return -1;
     }
 
-    pop(arr);
+    return *(arr+=index+1);
 }
 
-int size(int *arr){
-    return *arr;
-}
-
-int* at(int *arr, int index){
-    if(index+1>*arr){
-        printf("Out of bounds!\n");
-        return NULL;
-    }
-
-    return arr+=index+1;
-}
-
-int* push(int *arr, int val){
+int* push(int **ptr, int val){
+    int *arr = *ptr;
     int len = *arr;
+
     arr = realloc(arr, sizeof(int)*(*arr+1));
     if(arr == NULL){
         printf("REALLOC ERROR!");
@@ -52,13 +38,15 @@ int* push(int *arr, int val){
     }
 
     *arr = len+1;
-    int *temp = arr;
-    temp += len+1;
-    *temp = val;
-    return arr;
+    *(arr+len+1) = val;
+
+    *ptr = arr;
+
+    return *ptr;
 }
 
-int* insert(int *arr, int index, int val){
+int* insert(int **ptr, int index, int val){
+    int *arr = *ptr;
     int len = *arr;
     int prev = val;
     
@@ -81,10 +69,13 @@ int* insert(int *arr, int index, int val){
 
     *arr = len;
 
-    return arr;
+    *ptr = arr;
+
+    return *ptr;
 }
 
-int* pop(int *arr){
+int pop(int **ptr){
+    int *arr = *ptr;
     int len = *arr;
     int *temp = arr;
     temp += len;
@@ -93,10 +84,12 @@ int* pop(int *arr){
     arr = realloc(arr, sizeof(int)*(*arr-1));
     if(arr == NULL){
         printf("REALLOC ERROR!");
-        return NULL;
+        return -1;
     }
 
     *arr = len-1;
 
-    return arr;
+    *ptr = arr;
+
+    return val;
 }
