@@ -11,6 +11,8 @@ int main(int argc, char *argv[]) {
     int *arr = (int*) malloc(sizeof(int));
     *arr = 0;
     int **ptr = &arr;
+
+    free(*ptr);
 }
 
 int size(int **ptr){
