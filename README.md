@@ -1,7 +1,7 @@
 # Data Structures
 Implementation of data structures in C
 ### Arrays
-- [ ] Mutable array with automatic resizing
+- [x] Mutable array with automatic resizing
 	- [x] size() - number of elements
 	- [x] at(index) - returns element at index
 	- [x] push(item) - add element to end
