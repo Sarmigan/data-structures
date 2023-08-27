@@ -15,6 +15,8 @@ int main(int argc, char *argv[]) {
     int **ptr = &arr;
 
     free(*ptr);
+
+    return 0;
 }
 
 int size(int **ptr){
