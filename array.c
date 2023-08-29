@@ -88,13 +88,13 @@ int* insert(int **ptr, int index, int val){
         return NULL;
     }
 
-    int *temp = *ptr+1;
-    temp += index;
+    int *tmp = *ptr+1;
+    tmp += index;
     for(int i=index; i<len; i++){
         val = prev;
-        prev = *temp;
-        *temp = val;
-        temp++;
+        prev = *tmp;
+        *tmp = val;
+        tmp++;
     }
 
     **ptr = len;
@@ -104,7 +104,7 @@ int* insert(int **ptr, int index, int val){
 
 int* delete(int **ptr, int index){
     int len = **ptr;
-    int *temp = *ptr;
+    int *tmp = *ptr;
     int prev;
     int curr;
 
@@ -113,14 +113,14 @@ int* delete(int **ptr, int index){
         return NULL;
     }
 
-    temp += len;
-    prev = *temp;
-    temp--;
+    tmp += len;
+    prev = *tmp;
+    tmp--;
     for(int i=len-index-1; i>0; i--){
-        curr = *temp;
-        *temp = prev;
+        curr = *tmp;
+        *tmp = prev;
         prev = curr;
-        temp--;
+        tmp--;
     }
 
     len--;
@@ -138,7 +138,7 @@ int* delete(int **ptr, int index){
 
 int* find_remove(int **ptr, int val){
     int len = **ptr;
-    int *temp = *ptr + 1;
+    int *tmp = *ptr + 1;
 
     if(len<1){
         printf("ARRAY EMPTY!\n");
@@ -146,13 +146,13 @@ int* find_remove(int **ptr, int val){
     }
 
     for(int i=0; i<len; i++){
-        if(*temp == val){
+        if(*tmp == val){
             delete(ptr, i);
             i--;
             len = **ptr;
-            temp = *ptr + i + 2;
+            tmp = *ptr + i + 2;
         } else{
-            temp++;
+            tmp++;
         }
     }
 
