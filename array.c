@@ -11,6 +11,10 @@ int* find_remove(int **ptr, int val);
 
 int main(int argc, char *argv[]) {
     int *arr = (int*) malloc(sizeof(int));
+    if(arr == NULL){
+        printf("MALLOC ERROR!");
+        return -1;
+    }
     *arr = 0;
     int **ptr = &arr;
 
@@ -72,6 +76,7 @@ int pop(int **ptr){
     return val;
 }
 
+//REMOVE TMP AND REPLACE WITH PTR
 int* insert(int **ptr, int index, int val){
     int len = **ptr;
     int prev = val;
